@@ -6,26 +6,26 @@
     {% block body %}
     <h1 class="text-center">Register page</h1>
 
-<form class="row g-3">
+<form class="row g-3" method='POST' action="\register">
     <div class="col-md-6">
       <label for="inputEmail4" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+      <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
     </div>
     <div class="col-md-6">
       <label for="inputPassword4" class="form-label">Password</label>
-      <input type="password" class="form-control" id="inputPassword4" placeholder="password">
+      <input type="password" class="form-control" id="inputPassword4" placeholder="password" name="password">
     </div>
     <div class="col-12">
       <label for="inputAddress" class="form-label">First name</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="First name">
+      <input type="text" class="form-control" id="inputAddress" placeholder="First name" name="fname">
     </div>
     <div class="col-12">
       <label for="inputAddress2" class="form-label">Last name</label>
-      <input type="text" class="form-control" id="inputAddress2" placeholder="Last name">
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Last name" name="lname">
     </div>
     <div class="col-md-6">
       <label for="inputCity" class="form-label">Username</label>
-      <input type="text" class="form-control" id="inputCity" placeholder="username">
+      <input type="text" class="form-control" id="inputCity" placeholder="username" name="uname">
     </div>
     <!-- <div class="col-md-4">
       <label for="inputState" class="form-label">State</label>

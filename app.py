@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app =Flask(__name__)
@@ -24,8 +24,20 @@ def index():
 @app.route("/main")
 def main():
     return render_template("main.html")
-@app.route("/register")
+@app.route("/register",methods=['GET','POST'])
 def register():
+    if request.method=='POST':
+        email = request.form.get('email')
+        name = request.form.get('name')
+        password = request.form.get('password')
+        fname = request.form.get('fname')
+        lname = request.form.get('lname')
+        username = request.form.get('uname')
+        # print(email,password,fname,lname,username,name)
+        user=User(username=username,fname=fname,lname=lname,email=email,password=password)
+        db.session.add(user)
+        db.session.commit()
+        return('user registered sucessfully')
     return render_template("register.html")
 @app.route("/login")
 def login():
