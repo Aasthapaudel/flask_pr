@@ -1,13 +1,17 @@
 from flask import Flask, render_template, request,flash,redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager,login_user,UserMixin
 
 app =Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SECRET_KEY']='thissecret'
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 app.app_context().push()
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     fname = db.Column(db.String, nullable=False)
@@ -18,9 +22,13 @@ class User(db.Model):
     
 def __repr__(self):
         return '<User %r>' % self.username
-@app.route("/")
-def index():
-    return render_template("index.html")
+    
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+# @app.route("/")
+# def index():
+#     return render_template("index.html")
 @app.route("/main")
 def main():
     return render_template("main.html")
@@ -34,16 +42,27 @@ def register():
         lname = request.form.get('lname')
         username = request.form.get('uname')
         # print(email,password,fname,lname,username,name)
-        user=User(username=username,fname=fname,lname=lname,email=email,password=password)
+        user = User(username=username,fname=fname,lname=lname,email=email,password=password)
         db.session.add(user)
         db.session.commit()
         flash('user has been registered successfully','success')
         return redirect('/login')
 
     return render_template("register.html")
-@app.route("/login")
+@app.route("/login",methods=['GET','POST'])
 def login():
-    return render_template("login.html")
+   if request.method=='POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        user=User.query.filter_by(username = username).first()
+        if user and password ==user.password:
+           login_user(user)
+           return redirect('/')
+        else:
+          flash('Invalid Crendentials','warning')
+          return redirect('/login')
+    
+   return render_template("login.html")
 
 if __name__=="__main__":
     app.run(debug=True)

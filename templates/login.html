@@ -15,5 +15,19 @@
     </ul>
   {% endif %}
 {% endwith %}
-<h1>Login page</h1>
+<h1 class="text-center">Login page</h1>
+<form method ='POST' action='/login' class="my-5">
+  <div class="form-group">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Username</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+   
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Login</button>
+</div>
+</form>
 {% endblock body %}
