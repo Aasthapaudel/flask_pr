@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request,flash,redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager,login_user,UserMixin
+from flask_login import LoginManager,login_user,UserMixin,logout_user
 
 app =Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
@@ -26,9 +26,9 @@ def __repr__(self):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-# @app.route("/")
-# def index():
-#     return render_template("index.html")
+@app.route("/")
+def index():
+    return render_template("index.html")
 @app.route("/main")
 def main():
     return render_template("main.html")
@@ -59,10 +59,19 @@ def login():
            login_user(user)
            return redirect('/')
         else:
-          flash('Invalid Crendentials','warning')
+          flash('Invalid Crendentials','danger')
           return redirect('/login')
     
    return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect("/")
+
+@app.route("/blogpost")
+def blogpost():
+    return render_template("blog.html")
 
 if __name__=="__main__":
     app.run(debug=True)

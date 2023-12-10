@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% block title %}
+<title>Blog Page</title>
+{% endblock title %}
+{% block body %}
+
+<h1>Blog Page</h1>
+<!-- {{current_user.username}} -->
+<form>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Title</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder=" write title" name="title">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Author</label>
+      <input type="text"name="Author">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect2">Content</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea name="content">
+     </div>
+    
+    <input type="submit" value="POST"class="'btn btn-primary">
+ </form>
+{% endblock body %}
