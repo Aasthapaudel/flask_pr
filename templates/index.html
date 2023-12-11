@@ -3,10 +3,22 @@
 <title>Home</title>
 {% endblock title %}
 {% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+        <strong>Message:</strong> {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <h1>Home page</h1>
-{% for blog in data %}
-<br><br>
-
+<div class="row mb-3">
+    {% for blog in data %}
+ <br><br>
 <div class="col-md-6">
     <div class="row no-gutter border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
       <div class="col p-4 d-flex flex-column position-static">
@@ -22,6 +34,7 @@
   </div>
 </div>
   {% endfor %}
+</div>
 
 <!-- {{current_user.username}} -->
 {% endblock body %}

@@ -79,8 +79,18 @@ def logout():
     logout_user()
     return redirect("/")
 
-@app.route("/blogpost")
+@app.route("/blogpost",methods=['GET','POST'])
+
 def blogpost():
+    if request.method=='POST':
+        title=request.form.get('title')
+        author=request.form.get('author')
+        content =request.form.get('content')
+        blog =Blog(title=title,author=author,content=content)
+        db.session.add(blog)
+        db.session.commit()
+        flash('Your post has submitted successfully','success')
+        return redirect('/')
     return render_template("blog.html")
 
 if __name__=="__main__":
