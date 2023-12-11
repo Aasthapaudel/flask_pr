@@ -37,7 +37,8 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 @app.route("/")
 def index():
-    return render_template("index.html")
+    data=Blog.query.all()
+    return render_template("index.html",data=data)
 @app.route("/main")
 def main():
     return render_template("main.html")

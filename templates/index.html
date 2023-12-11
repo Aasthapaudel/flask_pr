@@ -4,5 +4,24 @@
 {% endblock title %}
 {% block body %}
 <h1>Home page</h1>
+{% for blog in data %}
+<br><br>
+
+<div class="col-md-6">
+    <div class="row no-gutter border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="col p-4 d-flex flex-column position-static">
+        <h3 class="mb-0">{{blog.title}}</h3>
+        <div class="mb-1 text-body-secondary">{{blog.pub_date}}</div>
+        <p class="card-text mb-auto">{{blog.content}}</p>
+        <h5>Author:-{{blog.author}}</h5>
+        <a href="#" class="stretched-link btn btn-primary">
+          Continue reading</a>
+      </div>
+    
+    </div>
+  </div>
+</div>
+  {% endfor %}
+
 <!-- {{current_user.username}} -->
 {% endblock body %}
