@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request,flash,redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager,login_user,UserMixin,logout_user
-
+from datetime import datetime
 app =Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SECRET_KEY']='thissecret'
@@ -23,6 +23,15 @@ class User(UserMixin,db.Model):
 def __repr__(self):
         return '<User %r>' % self.username
     
+class Blog(db.Model):
+        blog_id =db.Column(db.Integer,primary_key=True)
+        title =db.Column(db.String(80), nullable=False)
+        author =db.Column(db.String(50), nullable=False)
+        content =db.Column(db.Text(),nullable=False)
+        pub_date =db.Column(db.DateTime(),nullable=False,default=datetime.utcnow)
+    
+def __repr__(self):
+        return '<Blog %r>' % self.title        
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
